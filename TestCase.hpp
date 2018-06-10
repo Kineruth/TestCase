@@ -1,21 +1,26 @@
+#pragma once
+
+#include <sstream>
+#include <iostream>
 #include <string>
 
-template <typename T>
+using namespace std;
+
+
 class TestCase{
     
     private:
-    string name;
-    cerr c;
-    int total, passed, failed;
-    
+        string name;
+        ostream c;
+        int total, passed, failed;
+        
     public:
-        TestCase(string name, cerr c){
+        TestCase(string name, ostream& c):c(c.rdbuf()){
             this->name = name;
-            this->c = c;    
             total = passed = failed = 0;
         }
         
-        TestCase& check_equal(const T a, const T b) const{
+        template <typename T> TestCase& check_equal(const T a, const T b){
             this->total++;
             if(a!=b){
               c<<this->name<<": Failure in test #"<< total << a <<": should equal "<< b <<endl;
@@ -23,9 +28,10 @@ class TestCase{
             } else{
                passed++;
             }
+            return *this;
         } 
         
-        TestCase& check_different (const T a, const T b) const{
+        template <typename T> TestCase& check_different (const T a, const T b){
             this->total++;
             if (a==b){
                 c<<this->name<<": Failure in test #"<< total << a <<": should different "<< b <<endl;
@@ -33,13 +39,14 @@ class TestCase{
             } else{
                 passed++;
             }
+            return *this;
         } 
         /*
-        we need another tamplate viriable in orfer to execute differents options on him.
+        we need another tamplate variable in orfer to execute differents options on him.
         
         */
-        template<typename R>
-        TestCase& check_function((int)func(R val),const R a, const T b) const{
+        template<typename Fun , typename T>
+        TestCase& check_function(Fun func,const T a, const int b){
             int res = func(a);
             this->total++;
             if(res!=b){
@@ -48,20 +55,24 @@ class TestCase{
             } else{
                passed++;
             }
+            return *this;
         } 
         
-        TestCase& check_output(T a,string str){
+        template <typename T> TestCase& check_output(T a,string str){
             this->total++;
-            if(string(a)!=(str)){
-                c<<this->name<<": Failure in test #"<< total << ": string value should be "<< str <<" but returned "<<stirng(a)<<"!"<<endl;
+            ostringstream ss;
+            ss << a;
+            if(ss.str() != str){
+                c<<this->name<<": Failure in test #"<< total << ": string value should be "<< str <<" but returned "<< a <<"!"<<endl;
                 failed++;
             } else{
                passed++;
             }
-
+            return *this;
         }
         TestCase& print(){
             c << name << ": " << failed << " failed, " << passed << " passed, " << total << " total." << endl;
-            c << "---" << endl;
+            // c << "---" << endl;
+            return *this;
         }
 };
