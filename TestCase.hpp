@@ -19,7 +19,7 @@ class TestCase{
         TestCase(string name, ostream& c);
         void print();
         
-        template <typename T> TestCase& check_equal(const T a, const T b){
+        template <typename T> TestCase& check_equal(T a, T b){
             
             total++;
             
@@ -27,14 +27,14 @@ class TestCase{
                 passed++;
             } 
             else{
-                c << _name << ": Failure in test #" <<  total << a << ": should equal " << b << endl;
+                c << _name << ": Failure in test #" <<  total << ": " << a << " should equal " << b << "!" << endl;
                 failed++;
             }
             
             return *this;
         } 
         
-        template <typename T> TestCase& check_different (const T a, const T b){
+        template <typename T> TestCase& check_different (T a, T b){
             
             total++;
             
@@ -42,7 +42,7 @@ class TestCase{
                 passed++;
             } 
             else{
-                c << _name << ": Failure in test #" << total << a << ": should different " << b << endl;
+                c << _name << ": Failure in test #" << total << ": " << a << " should not equal " << b << "!" << endl;
                 failed++;
             }
             
@@ -80,7 +80,7 @@ class TestCase{
                 passed++;
             } 
             else{
-               c << _name << ": Failure in test #" << total << ": string value should be " << str << " but returned " << a << "!" << endl;
+               c << _name << ": Failure in test #" << total << ": string value should be " << str << " but returned " << ss.str() << "!" << endl;
                 failed++;
             }
             
