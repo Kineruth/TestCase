@@ -62,7 +62,7 @@ class TestCase{
                 passed++;
             } 
             else{
-               c << _name << ": Failure in test #" << total << ": Function should return " << b << " but is " << res << "!" << endl;
+               c << _name << ": Failure in test #" << total << ": Function should return " << b << " but returned " << res << "!" << endl;
                 failed++;
             }
             
@@ -80,7 +80,7 @@ class TestCase{
                 passed++;
             } 
             else{
-               c << _name << ": Failure in test #" << total << ": string value should be " << str << " but returned " << ss.str() << "!" << endl;
+               c << _name << ": Failure in test #" << total << ": string value should be " << str << " but is " << ss.str() << "!" << endl;
                 failed++;
             }
             
