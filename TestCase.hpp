@@ -50,13 +50,14 @@ class TestCase{
             int res = func(a);
             this->total++;
             if(res!=b){
-                c<<this->name<<": Failure in test #"<< total << ": function should return "<< b <<" but returned "<<res<<"!"<<endl;
+                c<<this->name<<": Failure in test #"<< total << ": Function should return "<< b <<" but is "<<res<<"!"<<endl;
                 failed++;
             } else{
                passed++;
             }
             return *this;
         } 
+        
         
         template <typename T> TestCase& check_output(T a,string str){
             this->total++;
