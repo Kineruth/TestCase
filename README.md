@@ -9,7 +9,7 @@ Assignment 9 in a C++ course
 Authors:
 --
 Dvir Barzilay  
-Kineret Ruth Nahary 
+Kineret Ruth Nahary   
 Shmuel Shimoni  
 
 **Introduction**
